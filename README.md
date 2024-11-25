@@ -5,4 +5,4 @@ La instalación puede realizarse desde git bash o en cualquier terminal dentro d
 
 **Librería de HTTP**
 
-pip install requests
+`pip install requests`
