@@ -1,19 +1,15 @@
-# Pasos a seguir para empezar a trabajar en la rama Main
-# Si el otro hizo cambios debes hacer:
-#git pull origin main
-# Fin, ya puedes empezar a trabajar.
+#Pasos a seguir para empezar a trabajar en la rama Main:
 
-#Para guardar tus cambios a la rama Main, debes hacer los siguientes pasos.
+#IMPORTANTE IMPORTANTE IMPORTANTE
+
 #Primero guardar el archivo con: Ctrl + S
+#git pull origin main
 #git add .
 #git commit -m "Aquí va cualquier mensaje"
 #git push origin main
+
 #Listo, ya acabaste de subir tus actualizaciones a la rama Main.
 
-#Como entrar a mi proyecto:
-#cd OneDrive
-#cd Universidad
-#cd "Programación Lógica y Funcional"
 print("Hello World, EBC, the only person in the World")
 
 print("Hello World, Edy has arrived to the World :D")
