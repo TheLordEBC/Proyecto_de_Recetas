@@ -1,4 +1,8 @@
 # Pasos a seguir para empezar a trabajar en la rama Main
+#IMPORTANTE
+#IMPORTANTE
+#IMPORTANTE
+#IMPORTANTE
 # Si el otro hizo cambios debes hacer:
 #git pull origin main
 # Fin, ya puedes empezar a trabajar.
