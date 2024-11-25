@@ -34,7 +34,7 @@ def obtener_detalles_receta(id_receta):
         return None
 
 if __name__ == "__main__":
-    print("Bienvenido, por favor seleccione una opción del siguiente menú")
+    #print("Bienvenido, por favor seleccione una opción del siguiente menú")
     # Buscar por nombre
     nombre = input("Ingrese el nombre de la receta que desea buscar: ")
     recetas_por_nombre = buscar_receta_por_nombre(nombre)
