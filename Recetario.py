@@ -47,7 +47,7 @@ def obtener_detalles_receta(id_receta):
 def buscar_y_traducir_receta(nombre_receta_espanol):
     # Traducir el nombre de la receta del español al inglés
     nombre_receta_ingles = traducir_texto(nombre_receta_espanol, "es", "en")
-    print(f"Buscando receta en inglés: {nombre_receta_ingles}")
+    print(f"Buscando receta: {nombre_receta_ingles}")
 
     # Buscar la receta en inglés usando la API de Spoonacular
     receta_en_ingles = buscar_receta_por_nombre(nombre_receta_ingles)
@@ -75,6 +75,6 @@ def buscar_y_traducir_receta(nombre_receta_espanol):
 
 # Función para ejecutar el flujo completo
 if __name__ == "__main__":
-    nombre_receta = input("Ingrese el nombre de la receta en español que desea buscar: ")
+    nombre_receta = input("Ingrese el nombre de la receta que desea buscar: ")
     buscar_y_traducir_receta(nombre_receta)
     print("Hasta la próxima chef :D")
