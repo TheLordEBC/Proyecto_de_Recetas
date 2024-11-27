@@ -6,3 +6,7 @@ La instalación puede realizarse desde git bash o en cualquier terminal dentro d
 **Librería de HTTP**
 
 `pip install requests`
+
+**Librería de Google Traslade**
+
+`pip install googletrans==4.0.0-rc1`
