@@ -10,3 +10,6 @@ La instalación puede realizarse desde git bash o en cualquier terminal dentro d
 **Librería de Google Traslade**
 
 `pip install googletrans==4.0.0-rc1`
+
+**Librería de interfaz**
+`pip install pillow`
