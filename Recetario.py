@@ -18,6 +18,46 @@ def traducir_texto(texto, origen, destino):
         messagebox.showerror("Error de Traducción", f"No se pudo traducir el texto. Error: {e}")
         return None
 
+# Función para obtener recetas sugeridas
+def obtener_receta_aleatoria():
+    url = "https://api.spoonacular.com/recipes/random"
+    params = {"apiKey": API_KEY, "number": 1}
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        resultado = response.json().get("recipes", [])
+        if resultado:
+            return resultado[0]  # Retorna la receta
+        else:
+            messagebox.showinfo("Sin Resultados", "No se encontró ninguna receta sugerida.")
+            return None
+    else:
+        messagebox.showerror("Error API", f"Error al obtener recetas aleatorias: {response.status_code}")
+        return None
+
+# Función para mostrar receta sugerida
+def mostrar_receta_sugerida():
+    receta = obtener_receta_aleatoria()
+    if receta:
+        # Traducir el título de la receta
+        titulo_espanol = traducir_texto(receta['title'], "en", "es")
+        etiqueta_receta_nombre.config(text=f"Receta sugerida: {titulo_espanol}")
+        
+        # Mostrar la imagen de la receta
+        if 'image' in receta:
+            try:
+                response = requests.get(receta['image'])
+                img_data = BytesIO(response.content)
+                img = Image.open(img_data).resize((200, 200))
+                img_tk = ImageTk.PhotoImage(img)
+                etiqueta_receta_imagen.configure(image=img_tk)
+                etiqueta_receta_imagen.image = img_tk
+            except Exception as e:
+                messagebox.showerror("Error de Imagen", f"No se pudo cargar la imagen. Error: {e}")
+
+def ocultar_receta_sugerida():
+    etiqueta_receta_nombre.pack_forget()  # Oculta el nombre
+    etiqueta_receta_imagen.pack_forget()  # Oculta la imagen
+
 # Función para buscar el ID de la receta por su nombre en inglés
 def buscar_receta_por_nombre(nombre_receta):
     url = "https://api.spoonacular.com/recipes/complexSearch"
@@ -45,6 +85,7 @@ def obtener_detalles_receta(id_receta):
         messagebox.showerror("Error API", f"Error al obtener detalles de la receta: {response.status_code}")
         return None
 
+
 # Función para buscar y traducir receta
 def buscar_y_traducir_receta():
     nombre_receta_espanol = entrada_nombre.get()
@@ -64,8 +105,10 @@ def buscar_y_traducir_receta():
         if detalles:
             mostrar_resultados(detalles)
 
+
 # Función para mostrar resultados en la interfaz
 def mostrar_resultados(detalles):
+    ocultar_receta_sugerida()
     resultado_texto.delete(1.0, tk.END)  # Limpiar resultados previos
     resultado_texto.insert(tk.END, f"Receta: {detalles['title']}\n\n")
     
@@ -107,7 +150,20 @@ def limpiar_resultados():
 # Crear la ventana principal
 ventana = tk.Tk()
 ventana.title("Buscador de Recetas")
-ventana.geometry("700x650")
+ventana.geometry("700x750")
+
+# Etiquetas para mostrar la receta sugerida
+etiqueta_receta_nombre = tk.Label(ventana, text="Receta sugerida: Cargando...", font=("Arial", 12, "bold"))
+etiqueta_receta_nombre.pack(pady=10)
+
+etiqueta_receta_imagen = tk.Label(ventana)
+etiqueta_receta_imagen.pack(pady=10)
+# Etiqueta para mostrar la imagen de la receta
+etiqueta_imagen = tk.Label(ventana)
+etiqueta_imagen.pack(pady=10)
+
+# Cargar una receta aleatoria al iniciar la aplicación
+mostrar_receta_sugerida()
 
 # Etiqueta y entrada para el nombre de la receta
 tk.Label(ventana, text="Nombre de la receta en español:").pack(pady=10)
@@ -121,10 +177,6 @@ tk.Button(ventana, text="Borrar Resultados", command=limpiar_resultados).pack(pa
 # Área de texto para mostrar los resultados
 resultado_texto = scrolledtext.ScrolledText(ventana, width=70, height=15)
 resultado_texto.pack(pady=10)
-
-# Etiqueta para mostrar la imagen de la receta
-etiqueta_imagen = tk.Label(ventana)
-etiqueta_imagen.pack(pady=10)
 
 # Mensajes adicionales
 tk.Label(ventana, text="Recuerde ingresar el nombre de la receta con la ortografía correcta para mejores resultados.", fg="blue").pack(pady=5)
